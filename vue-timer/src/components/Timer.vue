@@ -1,9 +1,9 @@
 <script lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
 export default {
-    setup() {
-        const remainingTime = ref<number>(60)
+    data() {
+        const remainingTime = ref<number>(10)
 
         const startTimer = () => {
             setInterval(() => {
@@ -11,12 +11,14 @@ export default {
             }, 1000)
         }
 
-        onMounted(() => {
-            startTimer()
-        })
+        const resetTimer = () => {
+            remainingTime.value = 10
+        }
 
         return {
-            remainingTime
+            remainingTime,
+            startTimer,
+            resetTimer,
         }
     }
 }
@@ -25,5 +27,7 @@ export default {
 <template>
     <div class="timer">
         <h1>{{ remainingTime }}</h1>
+        <button @click="startTimer">Start</button>
+        <button @click="resetTimer">Reset</button>
     </div>
 </template>
